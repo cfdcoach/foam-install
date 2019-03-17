@@ -1,0 +1,29 @@
+#!/bin/bash
+
+sudo yum -y install epel-release
+sudo yum -y install rpm-build gcc gcc-c++ libstdc++-devel binutils-devel
+sudo yum -y install m4 cmake qt qt-devel qtwebkit qtwebkit-devel flex
+
+mkdir ~/foam
+cd ~/foam
+git clone https://github.com/Unofficial-Extend-Project-Mirror/\
+openfoam-extend-foam-extend-3.1.git
+mv openfoam-extend-foam-extend-3.1 foam-extend-3.1
+
+echo "alias fe31='source $HOME/foam/foam-extend-3.1/etc/bashrc'" >> ~/.bashrc 
+echo "export QT_BIN_DIR=/usr/lib64/qt4/bin" >> ~/.bash_profile
+. ~/.bash_profile
+. ~/.bashrc
+fe31
+cd $FOAM_SRC
+wmakeLnIncludeAll
+
+cd ../ThirdParty/
+######
+## revising sped files needed
+######
+
+./AllMake > log.make3rdParty 2>&1 
+
+cd ../
+./Allwmake > log.make 2>&1 
