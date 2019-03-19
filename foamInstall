@@ -19,9 +19,11 @@ cd $FOAM_SRC
 wmakeLnIncludeAll
 
 cd ../ThirdParty/
-######
-## revising sped files needed
-######
+
+## revising spec files needed
+sed -i "/PyFoam-0.6.3.tar.gz/c  http://openfoamwiki.net/images/c/cb/PyFoam-0.6.3.tar.gz -n PyFoam-0.6.3-1.noarch -a noarch )" AllMake.stage3
+sed -i "/PyFoam-0.6.3-rc.tar.gz/c URL:                    http://openfoamwiki.net/images/e/e3/PyFoam-0.6.3-rc.tar.gz" rpmBuild/SPECS/PyFoam-0.6.3.spec
+sed -i "s/-rc//g" rpmBuild/SPECS/PyFoam-0.6.3.spec
 
 ./AllMake > log.make3rdParty 2>&1 
 
